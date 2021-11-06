@@ -6,11 +6,7 @@ class ImageGallery extends Component {
     return { scrollY: window.scrollY };
   }
 
-  componentDidUpdate(prevProps, prevState, snapshot) {
-    const prevImages = prevProps.images;
-    const { scrollY } = snapshot;
-    const { images } = this.props;
-
+  adjustScroll = (scrollY, prevImages, images) => {
     if (prevImages.length === 0 || prevImages === images) return;
 
     if (prevImages.length >= images.length) {
@@ -24,12 +20,23 @@ class ImageGallery extends Component {
       top: scrollY + window.innerHeight - 150,
       behavior: 'smooth',
     });
+  };
+
+  componentDidUpdate(prevProps, prevState, snapshot) {
+    const prevImages = prevProps.images;
+    const { scrollY } = snapshot;
+    const { images } = this.props;
+
+    this.adjustScroll(scrollY, prevImages, images);
   }
 
   render() {
-    const galleryItems = this.props.images.map(({ id, previewURL, tags }) => (
+    const { images } = this.props;
+
+    const galleryItems = images.map(({ id, previewURL, tags }) => (
       <ImageGalleryItem key={id} src={previewURL} alt={tags} />
     ));
+
     return <ul className="ImageGallery">{galleryItems}</ul>;
   }
 }
