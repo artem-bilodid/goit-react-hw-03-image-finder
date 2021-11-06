@@ -12,6 +12,14 @@ class ImageGallery extends Component {
     return { scrollY: window.scrollY };
   }
 
+  componentDidUpdate(prevProps, prevState, snapshot) {
+    const prevImages = prevProps.images;
+    const { scrollY } = snapshot;
+    const { images } = this.props;
+
+    this.adjustScroll(scrollY, prevImages, images);
+  }
+
   adjustScroll = (scrollY, prevImages, images) => {
     if (prevImages.length === 0 || prevImages === images) return;
 
@@ -27,14 +35,6 @@ class ImageGallery extends Component {
       behavior: 'smooth',
     });
   };
-
-  componentDidUpdate(prevProps, prevState, snapshot) {
-    const prevImages = prevProps.images;
-    const { scrollY } = snapshot;
-    const { images } = this.props;
-
-    this.adjustScroll(scrollY, prevImages, images);
-  }
 
   toggleModal = () => {
     this.setState(({ isModalOpen }) => ({ isModalOpen: !isModalOpen }));
