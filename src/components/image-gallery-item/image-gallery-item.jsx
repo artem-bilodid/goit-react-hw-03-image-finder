@@ -1,7 +1,7 @@
-const ImageGalleryItem = ({ src, alt }) => {
+const ImageGalleryItem = ({ id, src, alt, onClick }) => {
   return (
     <li className="ImageGalleryItem">
-      <img src={src} alt={alt} className="ImageGalleryItem-image" />
+      <img id={id} src={src} alt={alt} onClick={onClick} className="ImageGalleryItem-image" />
     </li>
   );
 };
