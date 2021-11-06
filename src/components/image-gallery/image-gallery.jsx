@@ -54,11 +54,11 @@ class ImageGallery extends Component {
     const imageSrc = modalImage?.largeImageURL;
     const imageTags = modalImage?.tags;
 
-    const galleryItems = images.map(({ id, previewURL, tags }) => (
+    const galleryItems = images.map(({ id, webformatURL, tags }) => (
       <ImageGalleryItem
         key={id}
         id={id}
-        src={previewURL}
+        src={webformatURL}
         alt={tags}
         onClick={this.handleItemClick}
       />
